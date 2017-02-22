@@ -22,17 +22,20 @@
 
 <body>
     <div class="container">
-        <h1>Better Dialog Test</h1>
+        <h1>Better Bootstrap Dialog - Test</h1>
 
-        <p>
+        <h2>
             Hey! Dialogs can now be nested ! (sub dialog inside a dialog!)
-        </p>
+        </h2>
 
         <p>
-        <button type="button" class="btn btn-primary" onclick="start()">Start</button>
+        <button type="button" class="btn btn-primary" onclick="start()">Start Dialog</button>
         </p>
         <p>
-            Activate Javascript console to see log output from sample
+        <button type="button" class="btn btn-primary" onclick="betterModal.run($('.dialogAlarm'),{text: 'Alarmmessage'})">Alarm Messagebox</button>
+        </p>
+        <p>
+            Activate Javascript console in Browser to see log output from sample
         </p>
     </div>
 
@@ -41,17 +44,23 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class=" close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title dlg-element" data-element="title">Master Dialog</h4>
+                    <h4 class="modal-title dlg-element" data-element="title">User</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="subdialoginfo">Information from SubDialog</div>
-                    <button type="button" class="btn btn-primary" onclick="startSub(this)">Second</button>
-                    <p>Now you can start a dialog inside another dialog</p>
+                    <div class="form">
+                      <div class="form-group">
+                        <label for="">Address</label>
+                        <div class="input-group">
+                        <input type="email" data-element="address" class="dlg-element form-control address" readonly placeholder="Adress">
+                            <div onclick="startSub(this)" class="btn btn-default input-group-addon">... </div>
+                        </div>
+                      </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                     <!-- THE CLASS ok is needed to define the CLOSE Action for this dialog  -->
-                    <button type="button" class="btn btn-success ok">Close</button>
+                    <button type="button" class="btn btn-primary ok">Close</button>
                 </div>
             </div>
         </div>
@@ -61,15 +70,39 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class=" close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title dlg-element" data-element="title">Specify Sub Value</h4>
+                    <h4 class="modal-title dlg-element" data-element="title">Specify Address</h4>
                 </div>
                 <div class="modal-body">
-                    <input type="text" class="infovalue" text="123" />
+                    <div class="form">
+                      <div class="form-group">
+                        <label for="">Street</label>
+                        <input type="email" class="form-control street"   placeholder="Street">
+                        <label for="">Town</label>
+                        <input type="email" class="form-control town"   placeholder="Town">
+                      </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                     <!-- THE CLASS ok is needed to define the CLOSE Action for this dialog  -->
                     <button type="button" class="btn btn-success ok">Apply</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dialogAlarm modal fade " tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class=" close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title dlg-element" data-element="title">Alarm</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="dlg-element" data-element="text"></p>
+                </div>
+                <div class="modal-footer">
+                    <!-- THE CLASS ok is needed to define the CLOSE Action for this dialog  -->
+                    <button type="button" class="btn btn-primary ok">OK</button>
                 </div>
             </div>
         </div>
@@ -82,8 +115,8 @@
                     console.log(
                         'Called when dialog is close with OK, dialog variable holds the current dialog with all Input Elements'
                     );
-                    var value = dialog.find('.infovalue').val(); // Value from Sub Dialog
-                    callingDialog.find('.subdialoginfo').text(value);
+                    var value = dialog.find('.street').val() + ', '+dialog.find('.town').val()  ; 
+                    callingDialog.find('.address').val(value);
                 })
                 .catch(function () {
                     console.log('Called when dialog break / is canceld');
@@ -91,7 +124,11 @@
                 })
         };
         var start = function () {
-            betterModal.run($('.dialogFirst'))
+            betterModal.run($('.dialogFirst'),{
+                address: function(obj) {
+                    obj.val('Default Address value')
+                }
+            })
                 .then(function (dialog) {
                     console.log(
                         'Called when dialog is close with OK, dialog variable holds the current dialog with all Input Elements'
