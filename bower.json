@@ -1,12 +1,12 @@
 {
-  "name": "bootStrapModal",
+  "name": "bootstrapmodal",
   "homepage": "https://github.com/keatec/bootStrapModal",
-  "description": "Libary for Promisify and Nested Modal Bootstrap Dialogs (better Modal)",
+  "description": "Libary for promisifyed / nested bootstrap dialogs",
   "main": "js/bsBetterModal.js",
   "keywords": [
     "bootstrap",
     "modal",
-    "promise"
+    "dialogs"
   ],
   "authors": [
     "Keatec GmbH"
