@@ -1,5 +1,5 @@
 {
-  "name": "keabootstrapmodal",
+  "name": "bootstrapmodal",
   "homepage": "https://github.com/keatec/bootStrapModal",
   "description": "Libary for promisifyed / nested bootstrap dialogs",
   "main": "js/bsBetterModal.js",
