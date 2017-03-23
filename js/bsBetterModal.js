@@ -47,7 +47,11 @@ SOFTWARE.
                     if ($.isFunction(te)) {
                         te($(obj));
                     } else {
-                        $(obj).text(''+te);
+                        if ($(obj).is('input')) {
+                            $(obj).val(''+te);
+                        } else {
+                            $(obj).text(''+te);
+                        }
                     }
                 });
 /*                for (var i in options) {

@@ -125,9 +125,10 @@
         };
         var start = function () {
             betterModal.run($('.dialogFirst'),{
-                address: function(obj) {
+                address2: function(obj) {
                     obj.val('Default Address value')
-                }
+                },
+                address: 'Meine'
             })
                 .then(function (dialog) {
                     console.log(
