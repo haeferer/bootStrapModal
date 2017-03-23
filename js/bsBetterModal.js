@@ -66,16 +66,35 @@ SOFTWARE.
                 };*/
                 element.appendTo($('body'));
                 var cancel = true;
-                element.find('.ok').one('click',function () {
-                    cancel = false;
-                    element.modal('hide');
-                    res(element);
-                });
+                var onOk = function (click) {
+                    if (options.check != undefined) {
+                        Promise.try(function () {
+                            return options.check(element);
+                        }).then(function (answer) {
+                            if (answer) {
+                                cancel = false;
+                                element.modal('hide');
+                                res(element);
+                            } else {
+                                $(click.target).one('click',onOk);
+                            }
+                        }).catch(function (err) {
+                            $(click.target).one('click',onOk);
+                            console.log(err, 'On Ok check');
+                        })
+                    } else {
+                        cancel = false;
+                        element.modal('hide');
+                        res(element);
+                    };
+                };
+                element.find('.ok').one('click',onOk);
                 element.modal().one('hidden.bs.modal',function () {
                     setTimeout(function () {
                         console.log('hide!',cancel);
                         if (cancel) rej('Dialog Cancel');
                         element.remove();
+                        console.log('dialog removed')
                         recursion--;
                     },0);
                 });

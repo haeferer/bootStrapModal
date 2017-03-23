@@ -110,7 +110,8 @@
     <script>
         var startSub = function (context) {
             var callingDialog = $(context).closest('.modal-content');
-            betterModal.run($('.dialogSecond'))
+            betterModal.run($('.dialogSecond'),{
+            })
                 .then(function (dialog) {
                     console.log(
                         'Called when dialog is close with OK, dialog variable holds the current dialog with all Input Elements'
@@ -125,10 +126,13 @@
         };
         var start = function () {
             betterModal.run($('.dialogFirst'),{
+                check : function (dlg) {
+                    return (dlg.find('.address').val() || '').length > 0
+                },  
                 address2: function(obj) {
                     obj.val('Default Address value')
                 },
-                address: 'Meine'
+                address: ''
             })
                 .then(function (dialog) {
                     console.log(
