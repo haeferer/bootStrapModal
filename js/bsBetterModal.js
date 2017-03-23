@@ -97,6 +97,8 @@ SOFTWARE.
                         console.log('dialog removed')
                         recursion--;
                     },0);
+                }).one('shown.bs.modal', function () {
+                   element.find('input').first().focus();
                 });
             });
         }
