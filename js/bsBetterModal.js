@@ -67,6 +67,7 @@ SOFTWARE.
                 element.appendTo($('body'));
                 var cancel = true;
                 var onOk = function (click) {
+                    var modalResult = $(click.target).data('modalresult')
                     if (options.check != undefined) {
                         Promise.try(function () {
                             return options.check(element);
@@ -74,6 +75,7 @@ SOFTWARE.
                             if (answer) {
                                 cancel = false;
                                 element.modal('hide');
+                                element.data('modalresult',modalResult);
                                 res(element);
                             } else {
                                 $(click.target).one('click',onOk);
@@ -85,6 +87,7 @@ SOFTWARE.
                     } else {
                         cancel = false;
                         element.modal('hide');
+                        element.data('modalresult',modalResult);
                         res(element);
                     };
                 };
